@@ -7,12 +7,13 @@ const express = require("express");
 const router = express.Router();
 
 // Controllers
-const { register } = require("../controllers/authController");
+const { register, login } = require("../controllers/authController");
 
 // Middlewares
 const upload = require("./upload");
 
 // Routes
 router.post("/register", upload.single("profile_image"), register);
+router.post("/login", login);
 
 module.exports = router;

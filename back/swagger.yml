@@ -1,0 +1,115 @@
+openapi: "3.0.0"
+info:
+  title: "인증 API"
+  description: "회원가입 및 로그인 API 문서"
+  version: "1.0.0"
+
+
+servers:
+  - url: "http://localhost:8000"
+    description: "개발 서버"
+
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: "회원가입"
+      description: "새로운 사용자 계정을 생성합니다"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - name
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: "password123"
+                name:
+                  type: string
+                  example: "홍길동"
+      responses:
+        "201":
+          description: "회원가입 성공"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "회원가입이 완료되었습니다"
+        "400":
+          description: "잘못된 요청"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "이미 존재하는 이메일입니다"
+
+
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: "로그인"
+      description: "사용자 로그인을 처리합니다"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: "password123"
+      responses:
+        "200":
+          description: "로그인 성공"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  message:
+                    type: string
+                    example: "로그인이 성공적으로 완료되었습니다"
+        "401":
+          description: "인증 실패"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "이메일 또는 비밀번호가 올바르지 않습니다"
+
+
+

@@ -1,0 +1,14 @@
+.register-form > div {
+  margin-bottom: 1rem;
+}
+
+.register-form > div > label {
+  display: block;
+  color: rgb(55 65 81);
+}
+
+.register-form > div > input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgb(55 65 81);
+}

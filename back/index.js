@@ -18,6 +18,11 @@ const authRouter = require("./routes/authRouters");
 // Constants
 const PORT = process.env.PORT || 8000;
 
+const swaggerUi = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load('./swagger.yml');
+
+
 // Initialize Express app
 const app = express();
 
@@ -26,6 +31,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Health check route
 app.get("/", (req, res) => {
